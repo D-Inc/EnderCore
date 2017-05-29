@@ -40,15 +40,12 @@ public abstract class TileEntityEnder extends TileEntity {
 
   @Override
   public final void updateEntity() {
-    if (ConfigHandler.allowExternalTickSpeedup || worldObj.getTotalWorldTime() != lastUpdate) {
-      lastUpdate = worldObj.getTotalWorldTime();
       doUpdate();
       if (isProgressTile && !worldObj.isRemote) {
         int curScaled = getProgressScaled(16);
         if (++ticksSinceLastProgressUpdate >= getProgressUpdateFreq() || curScaled != lastProgressScaled) {
           sendTaskProgressPacket();
           lastProgressScaled = curScaled;
-        }
       }
     }
   }
